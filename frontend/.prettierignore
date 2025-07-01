@@ -1,0 +1,16 @@
+# Node modules
+node_modules/
+package.json
+package-lock.json
+
+# Build output
+dist/
+
+# Angular specific
+angular.json
+
+# Git and IDE related
+.git/
+.gitignore
+.vscode/
+.idea/
