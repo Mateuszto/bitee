@@ -1,23 +1,26 @@
-<header tuiNavigationHeader >
+<header tuiNavigationHeader class="flex justify-between items-center">
   <span tuiNavigationLogo>
-    <img src="assets/bitee-logo.png" alt="logo" />
+    Bitee 🍴
   </span>
   
-  <nav tuiNavigationMain>
+  <nav tuiNavigationMain class="flex items-center gap-4 mr-4">
     <a
-    appearance="secondary"
-    tuiButton
-    type="button"
+      appearance="primary"
+      tuiButton
+      type="button"
+      routerLink="/login"
     >
-        <tui-icon icon="@tui.user" ></tui-icon>
-        Zaloguj
+      <tui-icon icon="@tui.user" ></tui-icon>
+        {{ 'Zaloguj się' }}
     </a>
     <a
-        tuiButton
-        type="button"
-        href="/"
+      tuiButton
+      appearance="outline"
+      type="button"
+      routerLink="/register"
     >
-        Wypróbuj za darmo
+      {{ 'Zarejestruj się' }}
+      <tui-icon icon="@tui.arrow-right" ></tui-icon>
     </a>
   </nav>
 </header>
