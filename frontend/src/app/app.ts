@@ -8,5 +8,4 @@ import { TuiRoot } from '@taiga-ui/core';
    templateUrl: './app.html',
 })
 export class App {
-   protected title = 'frontend';
 }
