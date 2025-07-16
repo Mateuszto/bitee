@@ -9,7 +9,4 @@ import { TuiRoot } from '@taiga-ui/core';
 })
 export class App {
   protected title = 'frontend';
-   selector: 'app-root',
-   imports: [RouterOutlet, TuiRoot],
-   templateUrl: './app.html',
-})
+}
