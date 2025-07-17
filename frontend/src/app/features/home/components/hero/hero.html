@@ -1,18 +1,10 @@
 <header [tuiHeader]="titleSize()" class="pt-15 md:pt-30 bg-(--tui-background-accent-1)">
    <div class="max-w-2xl mx-auto flex flex-col items-center gap-8 px-8 md:px-0">
       <hgroup tuiTitle class="gap-4!">
-         <h1 [style.color]="'var(--tui-text-primary-on-accent-1)'" class="text-center!">
-            {{ title }}
-         </h1>
-         <p
-            tuiSubtitle="s"
-            [style.color]="'var(--tui-text-primary-on-accent-1)'"
-            class="mb-8 mx-auto text-center"
-         >
-            {{ description }}
-         </p>
+         <h1 [style.align]="'center'">{{ title }}</h1>
+         <p tuiSubtitle="s" class="mb-8 mx-auto text-center">{{ description }}</p>
       </hgroup>
-      <a tuiButton appearance="accent" size="m" routerLink="/register"> {{ buttonText }} </a>
+      <a tuiButton appearance="accent" size="m" routerLink="/register">{{ buttonText }}</a>
    </div>
 </header>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">

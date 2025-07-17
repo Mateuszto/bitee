@@ -1,0 +1,47 @@
+<header class="border-b border-(--tui-border-normal) px-6 py-4">
+   <a class="text-2xl font-bold text-gray-900" routerLink="/">Bitee 🍴</a>
+</header>
+<main class="flex flex-col items-center justify-center w-full max-w-xl mx-auto gap-8 mt-32">
+   <div [tuiHeader]="titleSize()">
+      <hgroup tuiTitle class="gap-4!">
+         <h1>{{ title }}</h1>
+         <p tuiSubtitle="s" [style.textAlign]="'center'">{{ description }}</p>
+      </hgroup>
+   </div>
+   <form tuiForm="m" [formGroup]="loginForm.form" class="w-full" (ngSubmit)="loginForm.submit()">
+      <tui-textfield>
+         <label tuiLabel>{{ emailLabel }}</label>
+         <input formControlName="email" [placeholder]="emailPlaceholder" tuiTextfield />
+      </tui-textfield>
+      <tui-error formControlName="email" [error]="[] | tuiFieldError | async" />
+      <tui-textfield>
+         <label tuiLabel>{{ passwordLabel }}</label>
+         <input
+            [placeholder]="passwordPlaceholder"
+            tuiTextfield
+            type="password"
+            formControlName="password"
+         />
+         <tui-icon tuiPassword />
+      </tui-textfield>
+      <tui-error formControlName="password" [error]="[] | tuiFieldError | async" />
+      <label class="flex items-center gap-2">
+         <input tuiCheckbox type="checkbox" formControlName="rememberMe" />
+         {{ rememberMeLabel }}
+      </label>
+      <div class="flex flex-col gap-4 mt-4">
+         <button
+            tuiButton
+            type="submit"
+            [disabled]="loginForm.form.invalid"
+            appearance="primary"
+            [style.width.%]="100"
+         >
+            {{ loginInButtonText }}
+         </button>
+         <a tuiButton routerLink="/register" appearance="outline-grayscale" [style.width.%]="100">
+            {{ redirectToRegisterText }}
+         </a>
+      </div>
+   </form>
+</main>
