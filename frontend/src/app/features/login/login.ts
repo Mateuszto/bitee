@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
 import { Subscription, of } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TuiButton, TuiError, TuiIcon, TuiTextfield, TuiBreakpointService } from '@taiga-ui/core';
-import { TUI_PASSWORD_TEXTS } from '@taiga-ui/kit';
+import { TUI_PASSWORD_TEXTS, TuiButtonLoading } from '@taiga-ui/kit';
 import {
    TuiCheckbox,
    TuiFieldErrorPipe,
@@ -33,6 +33,7 @@ import { AsyncPipe } from '@angular/common';
       TuiError,
       TuiButton,
       TuiHeader,
+      TuiButtonLoading,
       TuiFieldErrorPipe,
       ReactiveFormsModule,
       AsyncPipe,

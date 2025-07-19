@@ -35,6 +35,7 @@
             type="submit"
             [disabled]="loginForm.form.invalid"
             appearance="primary"
+            [loading]="loginForm.isLoading()"
             [style.width.%]="100"
          >
             {{ loginInButtonText }}

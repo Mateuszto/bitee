@@ -1,29 +1,23 @@
-import { Injectable, inject } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Injectable, inject, signal } from '@angular/core';
+import { Validators, NonNullableFormBuilder } from '@angular/forms';
 import { AuthService } from '../../core/auth/auth.service';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable()
 export class LoginFormService {
-   private authService = inject(AuthService);
+   private readonly formBuilder = inject(NonNullableFormBuilder);
+   private readonly authService = inject(AuthService);
 
-   public readonly form = new FormGroup({
-      email: new FormControl<string>('', [Validators.required, Validators.email]),
-      password: new FormControl<string>('', [Validators.required]),
-      rememberMe: new FormControl<boolean>(false),
+   public readonly error = signal<string | null>(null);
+   public readonly isLoading = signal<boolean>(false);
+
+   public readonly form = this.formBuilder.group({
+      email: this.formBuilder.control<string>('', {
+         validators: [Validators.required, Validators.email],
+      }),
+      password: this.formBuilder.control<string>('', { validators: [Validators.required] }),
+      rememberMe: this.formBuilder.control<boolean>(false),
    });
-
-   public get email() {
-      return this.form.get('email');
-   }
-
-   public get password() {
-      return this.form.get('password');
-   }
-
-   public get rememberMe() {
-      return this.form.get('rememberMe');
-   }
 
    public submit(): Observable<boolean> {
       if (this.form.invalid) {
@@ -32,7 +26,13 @@ export class LoginFormService {
          });
       }
 
-      const { email, password, rememberMe } = this.form.value;
-      return this.authService.login(email!, password!, rememberMe!);
+      this.error.set(null);
+      this.isLoading.set(true);
+      const { email, password, rememberMe } = this.form.getRawValue();
+      return this.authService.login({ email, password, rememberMe }).pipe(
+         tap(() => {
+            this.isLoading.set(false);
+         }),
+      );
    }
 }
