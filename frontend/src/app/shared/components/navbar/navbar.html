@@ -1,14 +1,9 @@
 <header class="flex justify-between items-center py-4 px-6 bg-white">
-   <span class="text-2xl font-bold text-gray-900"> Bitee 🍴 </span>
+   <span class="text-2xl font-bold text-gray-900">Bitee 🍴</span>
    <nav class="flex items-center gap-4">
       @if (breakpoint$ | async; as breakpoint) {
-         @if (breakpoint === "mobile") {
-            <button
-               appearance="icon"
-               tuiButton
-               size="m"
-               (click)="open.set(true)"
-            >
+         @if (breakpoint === 'mobile') {
+            <button appearance="icon" tuiButton size="m" (click)="open.set(true)">
                <tui-icon icon="@tui.menu"></tui-icon>
             </button>
             <tui-drawer
@@ -21,9 +16,7 @@
                <div
                   class="flex items-center justify-between mb-8 pb-4 border-b border-(--tui-border-normal)"
                >
-                  <span class="text-2xl font-bold text-gray-900">
-                     Bitee 🍴
-                  </span>
+                  <span class="text-2xl font-bold text-gray-900">Bitee 🍴</span>
                   <button
                      tuiButton
                      appearance="icon"
@@ -35,22 +28,12 @@
                   </button>
                </div>
                <div class="flex flex-col gap-4">
-                  <a
-                     appearance="secondary"
-                     tuiButton
-                     size="s"
-                     routerLink="/login"
-                  >
+                  <a appearance="secondary" tuiButton size="s" routerLink="/login">
                      <tui-icon icon="@tui.user"></tui-icon>
-                     {{ signInButtonText }}
+                     Zaloguj się
                   </a>
-                  <a
-                     tuiButton
-                     appearance="accent"
-                     size="s"
-                     routerLink="/register"
-                  >
-                     {{ signUpButtonText }}
+                  <a tuiButton appearance="accent" size="s" routerLink="/register">
+                     Zarejestruj się
                      <tui-icon icon="@tui.arrow-right"></tui-icon>
                   </a>
                </div>
@@ -58,10 +41,10 @@
          } @else {
             <a appearance="secondary" tuiButton size="s" routerLink="/login">
                <tui-icon icon="@tui.user"></tui-icon>
-               {{ signInButtonText }}
+               Zaloguj się
             </a>
             <a tuiButton appearance="accent" size="s" routerLink="/register">
-               {{ signUpButtonText }}
+               Zarejestruj się
                <tui-icon icon="@tui.arrow-right"></tui-icon>
             </a>
          }
