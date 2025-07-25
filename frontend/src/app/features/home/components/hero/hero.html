@@ -1,28 +1,16 @@
-<header
-   [tuiHeader]="tuiHeader()"
-   class="pt-15 md:pt-30 bg-(--tui-background-accent-1)"
->
+<header [tuiHeader]="tuiHeader()" class="pt-15 md:pt-30 bg-(--tui-background-accent-1)">
    <div class="max-w-2xl mx-auto flex flex-col items-center gap-8 px-8 md:px-0">
       <hgroup tuiTitle class="gap-4!">
-         <h1
-            [style.color]="'var(--tui-text-primary-on-accent-1)'"
-            class="text-center!"
-         >
+         <h1 [style.align]="'center'">
             Bitee – Nowoczesne oprogramowanie do zarządzania restauracją
          </h1>
-         <p
-            tuiSubtitle="s"
-            [style.color]="'var(--tui-text-primary-on-accent-1)'"
-            class="mb-8 mx-auto text-center"
-         >
-            Zarządzaj swoją restauracją z łatwością dzięki Bitee. Nasze
-            oprogramowanie oferuje wszystko, czego potrzebujesz do efektywnego
-            zarządzania zamówieniami, rezerwacjami i komunikacją z klientami.
+         <p tuiSubtitle="s" class="mb-8 mx-auto text-center">
+            Zarządzaj swoją restauracją z łatwością dzięki Bitee. Nasze oprogramowanie oferuje
+            wszystko, czego potrzebujesz do efektywnego zarządzania zamówieniami, rezerwacjami i
+            komunikacją z klientami.
          </p>
       </hgroup>
-      <a tuiButton appearance="accent" size="m" routerLink="/register">
-         Wypróbuj za darmo
-      </a>
+      <a tuiButton appearance="accent" size="m" routerLink="/register"> Wypróbuj za darmo </a>
    </div>
 </header>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
