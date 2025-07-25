@@ -1,15 +1,15 @@
-import {
-   AfterViewInit,
-   ChangeDetectionStrategy,
-   Component,
-   inject,
-   OnDestroy,
-   signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Subscription, of } from 'rxjs';
+import { of } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TuiButton, TuiError, TuiIcon, TuiTextfield, TuiBreakpointService } from '@taiga-ui/core';
+import {
+   TuiButton,
+   TuiError,
+   TuiIcon,
+   TuiTextfield,
+   TuiBreakpointService,
+   TuiNotification,
+} from '@taiga-ui/core';
 import { TUI_PASSWORD_TEXTS, TuiButtonLoading } from '@taiga-ui/kit';
 import {
    TuiCheckbox,
@@ -20,6 +20,8 @@ import {
 import { TuiForm, TuiHeader } from '@taiga-ui/layout';
 import { LoginFormService } from './login-form.service';
 import { AsyncPipe } from '@angular/common';
+import { TUI_BREAKPOINT, TuiBreakpointValues } from '../../shared/consts/tui-breakpoint';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
    selector: 'app-login',
@@ -35,6 +37,7 @@ import { AsyncPipe } from '@angular/common';
       TuiHeader,
       TuiButtonLoading,
       TuiFieldErrorPipe,
+      TuiNotification,
       ReactiveFormsModule,
       AsyncPipe,
       RouterLink,
@@ -52,48 +55,26 @@ import { AsyncPipe } from '@angular/common';
    ],
    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent implements AfterViewInit, OnDestroy {
-   protected readonly title = 'Zaloguj się do Bitee';
-   protected readonly description = 'Wprowadź swoje dane, aby zalogować się do aplikacji.';
-   protected readonly loginInButtonText = 'Zaloguj się';
-   protected readonly passwordLabel = 'Hasło';
-   protected readonly passwordPlaceholder = 'Wprowadź swoje hasło';
-   protected readonly emailLabel = 'E-mail';
-   protected readonly emailPlaceholder = 'Wprowadź swój e-mail';
-   protected readonly rememberMeLabel = 'Zapamiętaj mnie';
-   protected readonly redirectToRegisterText = 'Nie masz konta? Zarejestruj się';
-   protected readonly showPasswordHint = 'Pokaż hasło';
-
+export class LoginComponent {
    protected readonly loginForm = inject(LoginFormService);
-   private readonly breakpoint$ = inject(TuiBreakpointService);
+   private readonly tuiBreakpointService = inject(TuiBreakpointService);
 
-   private readonly subscription = new Subscription();
-   protected readonly titleSize = signal<TuiHeader['size']>('h1');
+   protected readonly tuiHeader: Signal<TuiHeader['size']> = computed((): TuiHeader['size'] => {
+      switch (this.tuiBreakpoint()) {
+         case TUI_BREAKPOINT.MOBILE:
+            return 'h4';
+         case TUI_BREAKPOINT.DESKTOP_SMALL:
+            return 'h2';
+         case TUI_BREAKPOINT.DESKTOP_LARGE:
+         default:
+            return 'h1';
+      }
+   });
 
-   ngAfterViewInit(): void {
-      this.getTitleSize();
-   }
-
-   private getTitleSize(): void {
-      this.subscription.add(
-         this.breakpoint$.subscribe((breakpoint) => {
-            switch (breakpoint) {
-               case 'mobile':
-                  this.titleSize.set('h4');
-                  break;
-               case 'desktopSmall':
-                  this.titleSize.set('h2');
-                  break;
-               case 'desktopLarge':
-               default:
-                  this.titleSize.set('h1');
-                  break;
-            }
-         }),
-      );
-   }
-
-   ngOnDestroy(): void {
-      this.subscription.unsubscribe();
-   }
+   private readonly tuiBreakpoint: Signal<TuiBreakpointValues | null> = toSignal(
+      this.tuiBreakpointService,
+      {
+         initialValue: TUI_BREAKPOINT.DESKTOP_LARGE,
+      },
+   );
 }

@@ -2,22 +2,30 @@
    <a class="text-2xl font-bold text-gray-900" routerLink="/">Bitee 🍴</a>
 </header>
 <main class="flex flex-col items-center justify-center w-full max-w-xl mx-auto gap-8 mt-32">
-   <div [tuiHeader]="titleSize()">
-      <hgroup tuiTitle class="gap-4!">
-         <h1>{{ title }}</h1>
-         <p tuiSubtitle="s" [style.textAlign]="'center'">{{ description }}</p>
+   <div [tuiHeader]="tuiHeader()">
+      <hgroup tuiTitle>
+         <h1>Zaloguj się do Bitee</h1>
+         <p tuiSubtitle="s" [style.textAlign]="'center'">
+            Wprowadź swoje dane, aby zalogować się do aplikacji.
+         </p>
       </hgroup>
    </div>
+   @if (loginForm.error()) {
+      <tui-notification size="l" appearance="negative" [style.width.%]="100">
+         {{ loginForm.error() }}
+         <button iconStart="@tui.x" tuiIconButton type="button">Close</button>
+      </tui-notification>
+   }
    <form tuiForm="m" [formGroup]="loginForm.form" class="w-full" (ngSubmit)="loginForm.submit()">
       <tui-textfield>
-         <label tuiLabel>{{ emailLabel }}</label>
-         <input formControlName="email" [placeholder]="emailPlaceholder" tuiTextfield />
+         <label tuiLabel>E-mail</label>
+         <input formControlName="email" placeholder="Wprowadź swój e-mail" tuiTextfield />
       </tui-textfield>
       <tui-error formControlName="email" [error]="[] | tuiFieldError | async" />
       <tui-textfield>
-         <label tuiLabel>{{ passwordLabel }}</label>
+         <label tuiLabel>Hasło</label>
          <input
-            [placeholder]="passwordPlaceholder"
+            placeholder="Wprowadź swoje hasło"
             tuiTextfield
             type="password"
             formControlName="password"
@@ -27,7 +35,7 @@
       <tui-error formControlName="password" [error]="[] | tuiFieldError | async" />
       <label class="flex items-center gap-2">
          <input tuiCheckbox type="checkbox" formControlName="rememberMe" />
-         {{ rememberMeLabel }}
+         Zapamiętaj mnie
       </label>
       <div class="flex flex-col gap-4 mt-4">
          <button
@@ -38,10 +46,10 @@
             [loading]="loginForm.isLoading()"
             [style.width.%]="100"
          >
-            {{ loginInButtonText }}
+            Zaloguj się
          </button>
          <a tuiButton routerLink="/register" appearance="outline-grayscale" [style.width.%]="100">
-            {{ redirectToRegisterText }}
+            Nie masz konta? Zarejestruj się
          </a>
       </div>
    </form>
