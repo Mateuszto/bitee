@@ -1,0 +1,132 @@
+<div class="flex flex-col gap-6">
+   <h2 class="text-xl font-semibold">Dane firmy</h2>
+   <form
+      tuiForm="m"
+      [formGroup]="formGroup()"
+      class="flex flex-col gap-4"
+      (ngSubmit)="onSubmit.emit()"
+   >
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+         <div>
+            <tui-textfield>
+               <label tuiLabel for="companyName">Nazwa firmy</label>
+               <input
+                  name="companyName"
+                  autocomplete="organization"
+                  formControlName="companyName"
+                  placeholder="Wprowadź nazwę firmy"
+                  tuiTextfield
+               />
+            </tui-textfield>
+            <tui-error formControlName="companyName" [error]="[] | tuiFieldError | async" />
+         </div>
+         <div>
+            <tui-textfield>
+               <label tuiLabel for="nip">NIP</label>
+               <input tuiTextfield name="nip" formControlName="nip" placeholder="Wprowadź NIP" />
+            </tui-textfield>
+            <tui-error formControlName="nip" [error]="[] | tuiFieldError | async" />
+         </div>
+      </div>
+
+      <tui-textfield>
+         <label tuiLabel for="address">Adres</label>
+         <input
+            name="address"
+            formControlName="address"
+            autocomplete="address-level3"
+            placeholder="Wprowadź adres"
+            tuiTextfield
+         />
+      </tui-textfield>
+      <tui-error formControlName="address" [error]="[] | tuiFieldError | async" />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+         <div>
+            <tui-textfield>
+               <label tuiLabel for="city">Miasto</label>
+               <input
+                  name="city"
+                  formControlName="city"
+                  autocomplete="address-level2"
+                  placeholder="Wprowadź miasto"
+                  tuiTextfield
+               />
+            </tui-textfield>
+            <tui-error formControlName="city" [error]="[] | tuiFieldError | async" />
+         </div>
+         <div>
+            <tui-textfield>
+               <label tuiLabel for="postalCode">Kod pocztowy</label>
+               <input
+                  name="postalCode"
+                  formControlName="postalCode"
+                  autocomplete="postal-code"
+                  placeholder="00-000"
+                  tuiTextfield
+               />
+            </tui-textfield>
+            <tui-error formControlName="postalCode" [error]="[] | tuiFieldError | async" />
+         </div>
+      </div>
+
+      <tui-textfield>
+         <label tuiLabel for="phone">Telefon</label>
+         <input
+            name="phone"
+            autocomplete="tel"
+            formControlName="phone"
+            placeholder="Wprowadź numer telefonu"
+            tuiTextfield
+         />
+      </tui-textfield>
+      <tui-error formControlName="phone" [error]="[] | tuiFieldError | async" />
+
+      <div class="flex flex-col gap-2 mt-4">
+         <label class="flex items-start gap-2">
+            <input tuiCheckbox type="checkbox" formControlName="acceptAll" />
+            <span class="text-sm"> Zaznacz wszystkie </span>
+         </label>
+
+         <label class="flex items-start gap-2">
+            <input tuiCheckbox type="checkbox" formControlName="acceptTerms" />
+            <span class="text-sm">
+               Akceptuję <a href="#" class="text-blue-600 underline">regulamin serwisu</a>
+            </span>
+         </label>
+         <tui-error formControlName="acceptTerms" [error]="[] | tuiFieldError | async" />
+
+         <label class="flex items-start gap-2">
+            <input tuiCheckbox type="checkbox" formControlName="acceptPrivacy" />
+            <span class="text-sm">
+               Akceptuję <a href="#" class="text-blue-600 underline">politykę prywatności</a>
+            </span>
+         </label>
+         <tui-error formControlName="acceptPrivacy" [error]="[] | tuiFieldError | async" />
+
+         <label class="flex items-start gap-2">
+            <input tuiCheckbox type="checkbox" formControlName="acceptMarketing" />
+            <span class="text-sm">
+               Chcę otrzymywać oferty specjalne i inne informacje handlowe od BaseLinker sp. z o.o.
+               dotyczące usług oferowanych przez Base.com i jej spółki powiązane, za pośrednictwem
+               komunikacji elektronicznej.
+            </span>
+         </label>
+      </div>
+
+      <div class="flex justify-between mt-6">
+         <button tuiButton type="button" appearance="outline" (click)="onPreviousStep.emit()">
+            Wróć do danych podstawowych
+         </button>
+         <button
+            tuiButton
+            type="submit"
+            [disabled]="formGroup().invalid"
+            appearance="primary"
+            [loading]="isLoading()"
+         >
+            Wypróbuj za darmo
+         </button>
+      </div>
+   </form>
+</div>
