@@ -1,23 +1,50 @@
-# Bitee
+![Logo](/frontend/public/images/bitee-logo.png)
 
-## Getting Started
+## 📋 About the Project
 
-To get started with the Angular frontend application, follow these steps:
+Bitee is a modern restaurant management software offering comprehensive solutions for order management, reservations, and customer communication. The application uses the latest technologies, including Angular 20, to provide an efficient and user-friendly experience.
 
-1. **Install Packages**
+## 🚀 Features
+
+- Order management
+- Reservation system
+- Customer communication
+- Responsive interface with adaptive components
+- Modern UI animations
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **Framework**: Angular 20
+- **UI Library**: Taiga UI
+- **Other**: TailwindCSS, GSAP
+
+### Backend
+- **Framework**: Nest.js
+- **Database**: PostgreSQL
+
+### Installation and Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone [repository_address]
+   cd bitee
+   ```
+
+2. **Install dependencies**
    ```bash
    cd frontend
    npm install
    ```
 
-2. **Run Development Server**
+3. **Run development server**
    ```bash
    npm start
-   # or
-   ng serve
    ```
    The application will be available at `http://localhost:4200`
 
+4. **Build for production**
+   ```bash
+   npm run build
+   ```
 
-## Tech Stack
-**Frontend:** Angular | **Backend:** Nest | **Database:** Postgress
