@@ -7,7 +7,7 @@ on:
     branches: ["master"]
 
 jobs:
-  angular-tests:
+  angular-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,6 +26,10 @@ jobs:
         run: |
           cd frontend
           npm install
+      - name: Lint
+        run: |
+          cd frontend
+          npm run lint
       - name: Run tests
         run: |
           cd frontend
