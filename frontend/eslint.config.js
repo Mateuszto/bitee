@@ -14,7 +14,6 @@ export default [
    {
       ignores: ['dist/**/*', 'node_modules/**/*', '.angular/**/*', 'coverage/**/*']
    },
-   // Konfiguracja dla plików TypeScript
    {
       files: ['**/*.ts'],
       languageOptions: {
@@ -77,7 +76,6 @@ export default [
          'curly': 'error'
       }
    },
-   // Konfiguracja dla plików testowych
    {
       files: ['**/*.spec.ts'],
       languageOptions: {
@@ -92,7 +90,6 @@ export default [
          'no-console': 'off'
       }
    },
-   // Konfiguracja dla szablonów HTML
    {
       files: ['**/*.html'],
       plugins: {
