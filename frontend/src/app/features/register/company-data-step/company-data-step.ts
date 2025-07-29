@@ -9,8 +9,9 @@ import {
 } from '@taiga-ui/kit';
 import { TuiForm } from '@taiga-ui/layout';
 import { AsyncPipe } from '@angular/common';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { combineLatest, of } from 'rxjs';
+import { CompanyForm } from '../register-form.service';
+import { MaskitoDirective } from '@maskito/angular';
+import { MaskitoOptions } from '@maskito/core';
 
 @Component({
    selector: 'app-company-data-step',
@@ -26,38 +27,42 @@ import { combineLatest, of } from 'rxjs';
       ReactiveFormsModule,
       FormsModule,
       AsyncPipe,
+      MaskitoDirective,
    ],
    providers: [
       tuiValidationErrorsProvider({
          required: 'To pole jest wymagane',
          requiredTrue: 'To pole jest wymagane',
+         postalCodeFormat: 'Kod pocztowy musi mieć format 00-000',
       }),
    ],
    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CompanyDataStepComponent {
-   public readonly formGroup = input.required<FormGroup>();
+   public readonly formGroup = input.required<FormGroup<CompanyForm>>();
    public readonly isLoading = input.required<boolean>();
    public readonly onSubmit = output<void>();
    public readonly onPreviousStep = output<void>();
 
-   private readonly acceptanceValues = toSignal(
-      combineLatest<[boolean, boolean, boolean]>([
-         this.formGroup().controls['acceptPrivacy'].valueChanges ?? of(false),
-         this.formGroup().controls['acceptMarketing'].valueChanges ?? of(false),
-         this.formGroup().controls['acceptTerms'].valueChanges ?? of(false),
-      ]),
-      { initialValue: [false, false, false] as [boolean, boolean, boolean] },
-   );
+   // Polish postal code mask (00-000)
+   protected readonly postalCodeMask: MaskitoOptions = {
+      mask: [/\d/, /\d/, '-', /\d/, /\d/, /\d/],
+   };
 
-   private readonly acceptAll = toSignal<boolean>(
-      this.formGroup().controls['acceptAll'].valueChanges ?? of(false),
-   );
+   protected onAcceptanceChange() {
+      const acceptPrivacy = this.formGroup().controls.acceptPrivacy.value;
+      const acceptMarketing = this.formGroup().controls.acceptMarketing.value;
+      const acceptTerms = this.formGroup().controls.acceptTerms.value;
 
-   private readonly acceptanceEffect = effect(() => {
-      const allAccepted = this.acceptanceValues().every((value) => value);
-      if (allAccepted) {
-         // select checkbox "select all"
-      }
-   });
+      const acceptAll = acceptPrivacy && acceptMarketing && acceptTerms;
+      this.formGroup().controls.acceptAll.setValue(acceptAll);
+   }
+
+   protected selectAllAcceptances() {
+      const acceptAll = this.formGroup().controls.acceptAll.value;
+
+      this.formGroup().controls.acceptPrivacy.setValue(acceptAll);
+      this.formGroup().controls.acceptMarketing.setValue(acceptAll);
+      this.formGroup().controls.acceptTerms.setValue(acceptAll);
+   }
 }

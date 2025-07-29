@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@a
 import { RouterLink } from '@angular/router';
 import { of } from 'rxjs';
 import { TuiButton, TuiBreakpointService, TuiNotification } from '@taiga-ui/core';
-import { TUI_PASSWORD_TEXTS, TuiConnected, TuiStepper } from '@taiga-ui/kit';
+import { TUI_PASSWORD_TEXTS, TuiStepper } from '@taiga-ui/kit';
 import { TuiHeader } from '@taiga-ui/layout';
 import { RegisterFormService } from './register-form.service';
 import { TUI_BREAKPOINT, TuiBreakpointValues } from '../../shared/consts/tui-breakpoint';
@@ -18,7 +18,6 @@ import { CompanyDataStepComponent } from './company-data-step/company-data-step'
       TuiHeader,
       TuiNotification,
       TuiStepper,
-      TuiConnected,
       RouterLink,
       BasicDataStepComponent,
       CompanyDataStepComponent,

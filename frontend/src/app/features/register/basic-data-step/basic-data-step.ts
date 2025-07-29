@@ -27,7 +27,11 @@ import { RouterLink } from '@angular/router';
       tuiValidationErrorsProvider({
          required: 'To pole jest wymagane',
          email: 'Wprowadź poprawny adres e-mail',
-         minlength: 'Hasło musi mieć co najmniej 8 znaków',
+         minLength: 'Hasło musi mieć co najmniej 8 znaków',
+         lowercase: 'Hasło musi zawierać co najmniej jedną małą literę',
+         uppercase: 'Hasło musi zawierać co najmniej jedną wielką literę',
+         number: 'Hasło musi zawierać co najmniej jedną cyfrę',
+         symbol: 'Hasło musi zawierać co najmniej jeden znak specjalny',
       }),
       {
          provide: TUI_PASSWORD_TEXTS,

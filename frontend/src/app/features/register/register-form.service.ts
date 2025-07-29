@@ -4,13 +4,32 @@ import {
    NonNullableFormBuilder,
    AbstractControl,
    ValidationErrors,
-   Form,
    FormControl,
 } from '@angular/forms';
 import { AuthService } from '../../core/auth/auth.service';
 import { finalize } from 'rxjs';
 import { TuiAlertService } from '@taiga-ui/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { postalCodeValidator } from '../../shared/validators/postal-code.directive';
+
+export interface CompanyForm {
+   country: FormControl<string>;
+   nip: FormControl<string>;
+   companyName: FormControl<string>;
+   address: FormControl<string>;
+   city: FormControl<string>;
+   postalCode: FormControl<string>;
+   phone: FormControl<string>;
+   acceptTerms: FormControl<boolean>;
+   acceptPrivacy: FormControl<boolean>;
+   acceptMarketing: FormControl<boolean>;
+   acceptAll: FormControl<boolean>;
+}
+
+export interface BasicForm {
+   email: FormControl<string>;
+   password: FormControl<string>;
+}
 
 @Injectable()
 export class RegisterFormService {
@@ -23,10 +42,7 @@ export class RegisterFormService {
    public readonly isLoading = signal<boolean>(false);
    public readonly currentStep = signal<number>(0);
 
-   public readonly basicForm = this.formBuilder.group<{
-      email: FormControl<string>;
-      password: FormControl<string>;
-   }>({
+   public readonly basicForm = this.formBuilder.group<BasicForm>({
       email: this.formBuilder.control<string>('', {
          validators: [Validators.required, Validators.email],
       }),
@@ -35,25 +51,15 @@ export class RegisterFormService {
       }),
    });
 
-   public readonly companyForm = this.formBuilder.group<{
-      country: FormControl<string>;
-      nip: FormControl<string>;
-      companyName: FormControl<string>;
-      address: FormControl<string>;
-      city: FormControl<string>;
-      postalCode: FormControl<string>;
-      phone: FormControl<string>;
-      acceptTerms: FormControl<boolean>;
-      acceptPrivacy: FormControl<boolean>;
-      acceptMarketing: FormControl<boolean>;
-      acceptAll: FormControl<boolean>;
-   }>({
+   public readonly companyForm = this.formBuilder.group<CompanyForm>({
       country: this.formBuilder.control<string>('', { validators: [Validators.required] }),
       nip: this.formBuilder.control<string>('', { validators: [Validators.required] }),
       companyName: this.formBuilder.control<string>('', { validators: [Validators.required] }),
       address: this.formBuilder.control<string>('', { validators: [Validators.required] }),
       city: this.formBuilder.control<string>('', { validators: [Validators.required] }),
-      postalCode: this.formBuilder.control<string>('', { validators: [Validators.required] }),
+      postalCode: this.formBuilder.control<string>('', {
+         validators: [Validators.required, postalCodeValidator()],
+      }),
       phone: this.formBuilder.control<string>('', { validators: [Validators.required] }),
       acceptTerms: this.formBuilder.control<boolean>(false, {
          validators: [Validators.requiredTrue],

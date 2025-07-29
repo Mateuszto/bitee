@@ -7,7 +7,7 @@
       (ngSubmit)="onSubmit.emit()"
    >
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-         <div>
+         <div class="flex flex-col gap-4">
             <tui-textfield>
                <label tuiLabel for="companyName">Nazwa firmy</label>
                <input
@@ -20,7 +20,7 @@
             </tui-textfield>
             <tui-error formControlName="companyName" [error]="[] | tuiFieldError | async" />
          </div>
-         <div>
+         <div class="flex flex-col gap-4">
             <tui-textfield>
                <label tuiLabel for="nip">NIP</label>
                <input tuiTextfield name="nip" formControlName="nip" placeholder="Wprowadź NIP" />
@@ -42,7 +42,7 @@
       <tui-error formControlName="address" [error]="[] | tuiFieldError | async" />
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-         <div>
+         <div class="flex flex-col gap-4">
             <tui-textfield>
                <label tuiLabel for="city">Miasto</label>
                <input
@@ -55,7 +55,7 @@
             </tui-textfield>
             <tui-error formControlName="city" [error]="[] | tuiFieldError | async" />
          </div>
-         <div>
+         <div class="flex flex-col gap-4">
             <tui-textfield>
                <label tuiLabel for="postalCode">Kod pocztowy</label>
                <input
@@ -64,6 +64,7 @@
                   autocomplete="postal-code"
                   placeholder="00-000"
                   tuiTextfield
+                  [maskito]="postalCodeMask"
                />
             </tui-textfield>
             <tui-error formControlName="postalCode" [error]="[] | tuiFieldError | async" />
@@ -83,41 +84,66 @@
       <tui-error formControlName="phone" [error]="[] | tuiFieldError | async" />
 
       <div class="flex flex-col gap-2 mt-4">
-         <label class="flex items-start gap-2">
-            <input tuiCheckbox type="checkbox" formControlName="acceptAll" />
+         <label class="flex items-start gap-2" for="acceptAll">
+            <input
+               tuiCheckbox
+               name="acceptAll"
+               type="checkbox"
+               formControlName="acceptAll"
+               (change)="selectAllAcceptances()"
+            />
             <span class="text-sm"> Zaznacz wszystkie </span>
          </label>
 
-         <label class="flex items-start gap-2">
-            <input tuiCheckbox type="checkbox" formControlName="acceptTerms" />
+         <div class="flex flex-col gap-4">
+            <label class="flex items-start gap-2" for="acceptTerms">
+               <input
+                  tuiCheckbox
+                  name="acceptTerms"
+                  type="checkbox"
+                  formControlName="acceptTerms"
+                  (change)="onAcceptanceChange()"
+               />
+               <span class="text-sm">
+                  <span class="text-(--tui-text-negative)">*</span> Akceptuję
+                  <a routerLink="/terms" class="text-blue-600 underline">regulamin serwisu</a>
+               </span>
+            </label>
+            <tui-error formControlName="acceptTerms" [error]="[] | tuiFieldError | async" />
+         </div>
+         <div class="flex flex-col gap-4">
+            <label class="flex items-start gap-2" for="acceptPrivacy">
+               <input
+                  tuiCheckbox
+                  name="acceptPrivacy"
+                  type="checkbox"
+                  formControlName="acceptPrivacy"
+                  (change)="onAcceptanceChange()"
+               />
+               <span class="text-sm">
+                  <span class="text-(--tui-text-negative)">*</span> Akceptuję
+                  <a routerLink="/privacy" class="text-blue-600 underline">politykę prywatności</a>
+               </span>
+            </label>
+            <tui-error formControlName="acceptPrivacy" [error]="[] | tuiFieldError | async" />
+         </div>
+         <label class="flex items-start gap-2" for="acceptMarketing">
+            <input
+               tuiCheckbox
+               name="acceptMarketing"
+               type="checkbox"
+               formControlName="acceptMarketing"
+               (change)="onAcceptanceChange()"
+            />
             <span class="text-sm">
-               Akceptuję <a href="#" class="text-blue-600 underline">regulamin serwisu</a>
-            </span>
-         </label>
-         <tui-error formControlName="acceptTerms" [error]="[] | tuiFieldError | async" />
-
-         <label class="flex items-start gap-2">
-            <input tuiCheckbox type="checkbox" formControlName="acceptPrivacy" />
-            <span class="text-sm">
-               Akceptuję <a href="#" class="text-blue-600 underline">politykę prywatności</a>
-            </span>
-         </label>
-         <tui-error formControlName="acceptPrivacy" [error]="[] | tuiFieldError | async" />
-
-         <label class="flex items-start gap-2">
-            <input tuiCheckbox type="checkbox" formControlName="acceptMarketing" />
-            <span class="text-sm">
-               Chcę otrzymywać oferty specjalne i inne informacje handlowe od BaseLinker sp. z o.o.
-               dotyczące usług oferowanych przez Base.com i jej spółki powiązane, za pośrednictwem
-               komunikacji elektronicznej.
+               Chcę otrzymywać oferty specjalne i inne informacje handlowe od Bitee sp. z o.o.
+               dotyczące usług oferowanych przez Bitee.pl za pośrednictwem komunikacji
+               elektronicznej.
             </span>
          </label>
       </div>
 
-      <div class="flex justify-between mt-6">
-         <button tuiButton type="button" appearance="outline" (click)="onPreviousStep.emit()">
-            Wróć do danych podstawowych
-         </button>
+      <div class="flex flex-col gap-4 mt-4">
          <button
             tuiButton
             type="submit"
@@ -126,6 +152,14 @@
             [loading]="isLoading()"
          >
             Wypróbuj za darmo
+         </button>
+         <button
+            tuiButton
+            type="button"
+            appearance="outline-grayscale"
+            (click)="onPreviousStep.emit()"
+         >
+            Wróć do danych podstawowych
          </button>
       </div>
    </form>
