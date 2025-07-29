@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+
 import { Navbar } from '../../shared/components/navbar/navbar';
 import { Hero } from './components/hero/hero';
 
@@ -8,5 +9,4 @@ import { Hero } from './components/hero/hero';
    imports: [Navbar, Hero],
    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Home {
-}
+export class Home {}
