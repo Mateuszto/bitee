@@ -2,9 +2,9 @@
    <h2 class="text-xl font-semibold">Dane firmy</h2>
    <form
       tuiForm="m"
-      [formGroup]="formGroup()"
+      [formGroup]="companyForm.form"
       class="flex flex-col gap-4"
-      (ngSubmit)="onSubmit.emit()"
+      (ngSubmit)="registerForm.submit()"
    >
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
          <div class="flex flex-col gap-4">
@@ -12,6 +12,7 @@
                <label tuiLabel for="companyName">Nazwa firmy</label>
                <input
                   name="companyName"
+                  id="companyName"
                   autocomplete="organization"
                   formControlName="companyName"
                   placeholder="Wprowadź nazwę firmy"
@@ -23,7 +24,14 @@
          <div class="flex flex-col gap-4">
             <tui-textfield>
                <label tuiLabel for="nip">NIP</label>
-               <input tuiTextfield name="nip" formControlName="nip" placeholder="Wprowadź NIP" />
+               <input
+                  tuiTextfield
+                  name="nip"
+                  id="nip"
+                  formControlName="nip"
+                  placeholder="Wprowadź NIP"
+                  [maskito]="nipMask"
+               />
             </tui-textfield>
             <tui-error formControlName="nip" [error]="[] | tuiFieldError | async" />
          </div>
@@ -33,6 +41,7 @@
          <label tuiLabel for="address">Adres</label>
          <input
             name="address"
+            id="address"
             formControlName="address"
             autocomplete="address-level3"
             placeholder="Wprowadź adres"
@@ -47,6 +56,7 @@
                <label tuiLabel for="city">Miasto</label>
                <input
                   name="city"
+                  id="city"
                   formControlName="city"
                   autocomplete="address-level2"
                   placeholder="Wprowadź miasto"
@@ -60,6 +70,7 @@
                <label tuiLabel for="postalCode">Kod pocztowy</label>
                <input
                   name="postalCode"
+                  id="postalCode"
                   formControlName="postalCode"
                   autocomplete="postal-code"
                   placeholder="00-000"
@@ -75,10 +86,12 @@
          <label tuiLabel for="phone">Telefon</label>
          <input
             name="phone"
+            id="phone"
             autocomplete="tel"
             formControlName="phone"
             placeholder="Wprowadź numer telefonu"
             tuiTextfield
+            [maskito]="phoneMask"
          />
       </tui-textfield>
       <tui-error formControlName="phone" [error]="[] | tuiFieldError | async" />
@@ -88,9 +101,10 @@
             <input
                tuiCheckbox
                name="acceptAll"
+               id="acceptAll"
                type="checkbox"
                formControlName="acceptAll"
-               (change)="selectAllAcceptances()"
+               (change)="companyForm.selectAllAcceptances()"
             />
             <span class="text-sm"> Zaznacz wszystkie </span>
          </label>
@@ -100,9 +114,10 @@
                <input
                   tuiCheckbox
                   name="acceptTerms"
+                  id="acceptTerms"
                   type="checkbox"
                   formControlName="acceptTerms"
-                  (change)="onAcceptanceChange()"
+                  (change)="companyForm.onAcceptanceChange()"
                />
                <span class="text-sm">
                   <span class="text-(--tui-text-negative)">*</span> Akceptuję
@@ -116,9 +131,10 @@
                <input
                   tuiCheckbox
                   name="acceptPrivacy"
+                  id="acceptPrivacy"
                   type="checkbox"
                   formControlName="acceptPrivacy"
-                  (change)="onAcceptanceChange()"
+                  (change)="companyForm.onAcceptanceChange()"
                />
                <span class="text-sm">
                   <span class="text-(--tui-text-negative)">*</span> Akceptuję
@@ -133,7 +149,7 @@
                name="acceptMarketing"
                type="checkbox"
                formControlName="acceptMarketing"
-               (change)="onAcceptanceChange()"
+               (change)="companyForm.onAcceptanceChange()"
             />
             <span class="text-sm">
                Chcę otrzymywać oferty specjalne i inne informacje handlowe od Bitee sp. z o.o.
@@ -147,18 +163,13 @@
          <button
             tuiButton
             type="submit"
-            [disabled]="formGroup().invalid"
+            [disabled]="companyForm.form.invalid"
             appearance="primary"
-            [loading]="isLoading()"
+            [loading]="state.isLoading()"
          >
             Wypróbuj za darmo
          </button>
-         <button
-            tuiButton
-            type="button"
-            appearance="outline-grayscale"
-            (click)="onPreviousStep.emit()"
-         >
+         <button tuiButton type="button" appearance="outline-grayscale" (click)="state.setStep(0)">
             Wróć do danych podstawowych
          </button>
       </div>

@@ -1,14 +1,15 @@
-import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { of } from 'rxjs';
-import { TuiButton, TuiBreakpointService, TuiNotification } from '@taiga-ui/core';
-import { TUI_PASSWORD_TEXTS, TuiStepper } from '@taiga-ui/kit';
+import { TuiButton, TuiNotification } from '@taiga-ui/core';
+import { TuiStepper } from '@taiga-ui/kit';
 import { TuiHeader } from '@taiga-ui/layout';
-import { RegisterFormService } from './register-form.service';
-import { TUI_BREAKPOINT, TuiBreakpointValues } from '../../shared/consts/tui-breakpoint';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { BasicDataStepComponent } from './basic-data-step/basic-data-step';
-import { CompanyDataStepComponent } from './company-data-step/company-data-step';
+import { RegisterFormService } from './services/register-form.service';
+import { RegisterCoreStepComponent } from './register-core-step/register-core-step';
+import { RegisterCompantStepComponent } from './register-company-step/register-company-step';
+import { TitleSizeDirective } from '../../shared/directives/title-size.directive';
+import { RegisterCoreStepFormService } from './register-core-step/register-core-step-form.service';
+import { RegisterCompanyStepFormService } from './register-company-step/register-company-step-form.service';
+import { RegisterStateService } from './services/register-state.service';
 
 @Component({
    selector: 'app-register',
@@ -19,38 +20,19 @@ import { CompanyDataStepComponent } from './company-data-step/company-data-step'
       TuiNotification,
       TuiStepper,
       RouterLink,
-      BasicDataStepComponent,
-      CompanyDataStepComponent,
+      RegisterCoreStepComponent,
+      RegisterCompantStepComponent,
+      TitleSizeDirective,
    ],
    providers: [
       RegisterFormService,
-      {
-         provide: TUI_PASSWORD_TEXTS,
-         useValue: of(['Pokaż hasło', 'Ukryj hasło']),
-      },
+      RegisterCoreStepFormService,
+      RegisterCompanyStepFormService,
+      RegisterStateService,
    ],
    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent {
    protected readonly registerForm = inject(RegisterFormService);
-   private readonly tuiBreakpointService = inject(TuiBreakpointService);
-
-   protected readonly tuiHeader: Signal<TuiHeader['size']> = computed((): TuiHeader['size'] => {
-      switch (this.tuiBreakpoint()) {
-         case TUI_BREAKPOINT.MOBILE:
-            return 'h4';
-         case TUI_BREAKPOINT.DESKTOP_SMALL:
-            return 'h2';
-         case TUI_BREAKPOINT.DESKTOP_LARGE:
-         default:
-            return 'h1';
-      }
-   });
-
-   private readonly tuiBreakpoint: Signal<TuiBreakpointValues | null> = toSignal(
-      this.tuiBreakpointService,
-      {
-         initialValue: TUI_BREAKPOINT.DESKTOP_LARGE,
-      },
-   );
+   protected readonly state = inject(RegisterStateService);
 }

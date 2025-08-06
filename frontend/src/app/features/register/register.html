@@ -2,7 +2,7 @@
    <a class="text-2xl font-bold text-gray-900" routerLink="/">Bitee 🍴</a>
 </header>
 <main class="flex flex-col items-center justify-center w-full max-w-xl mx-auto gap-8 mt-32">
-   <div [tuiHeader]="tuiHeader()">
+   <div tuiHeader titleSize>
       <hgroup tuiTitle>
          <h1>Zarejestruj się w Bitee</h1>
          <p tuiSubtitle="s" [style.textAlign]="'center'">
@@ -11,47 +11,33 @@
       </hgroup>
    </div>
 
-   @if (registerForm.error()) {
+   @if (state.error()) {
       <tui-notification size="l" appearance="negative" [style.width.%]="100">
-         {{ registerForm.error() }}
-         <button
-            iconStart="@tui.x"
-            tuiIconButton
-            type="button"
-            (click)="registerForm.error.set(null)"
-         >
+         {{ state.error() }}
+         <button iconStart="@tui.x" tuiIconButton type="button" (click)="state.error.set(null)">
             Close
          </button>
       </tui-notification>
    }
-   <tui-stepper class="w-full justify-center" [activeItemIndex]="registerForm.currentStep()">
-      <button tuiStep type="button" (click)="registerForm.setStep(0)">Dane podstawowe</button>
+   <tui-stepper class="w-full justify-center" [activeItemIndex]="state.currentStep()">
+      <button tuiStep type="button" (click)="state.setStep(0)">Dane podstawowe</button>
       <button
          tuiStep
          type="button"
-         [disabled]="!registerForm.canProceedToNextStep()"
-         (click)="registerForm.setStep(1)"
+         [disabled]="!state.canProceedToNextStep()"
+         (click)="state.setStep(1)"
       >
          Dane firmy
       </button>
    </tui-stepper>
 
    <div class="flex flex-col gap-6 w-full">
-      @switch (registerForm.currentStep()) {
+      @switch (state.currentStep()) {
          @case (0) {
-            <app-basic-data-step
-               [formGroup]="registerForm.basicForm"
-               [canProceed]="registerForm.canProceedToNextStep()"
-               (onSubmit)="registerForm.setStep(1)"
-            />
+            <app-register-core-step />
          }
          @case (1) {
-            <app-company-data-step
-               [formGroup]="registerForm.companyForm"
-               [isLoading]="registerForm.isLoading()"
-               (onSubmit)="registerForm.submit()"
-               (onPreviousStep)="registerForm.setStep(0)"
-            />
+            <app-register-company-step />
          }
       }
    </div>

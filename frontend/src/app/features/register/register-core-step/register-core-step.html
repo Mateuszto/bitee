@@ -2,9 +2,9 @@
    <h2 class="text-xl font-semibold">Dane podstawowe</h2>
    <form
       tuiForm="m"
-      [formGroup]="formGroup()"
+      [formGroup]="coreForm.form"
       class="flex flex-col gap-4"
-      (ngSubmit)="onSubmit.emit()"
+      (ngSubmit)="state.setStep(1)"
    >
       <tui-textfield>
          <label tuiLabel for="email">E-mail</label>
@@ -33,7 +33,12 @@
       <tui-error formControlName="password" [error]="[] | tuiFieldError | async" />
 
       <div class="flex flex-col gap-4 mt-4">
-         <button tuiButton type="submit" [disabled]="!canProceed()" appearance="primary">
+         <button
+            tuiButton
+            type="submit"
+            [disabled]="!state.canProceedToNextStep()"
+            appearance="primary"
+         >
             Dalej
          </button>
          <a tuiButton routerLink="/login" appearance="outline-grayscale" [style.width.%]="100">
