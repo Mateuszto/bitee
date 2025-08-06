@@ -1,7 +1,7 @@
 import { Injectable, inject, signal, DestroyRef } from '@angular/core';
 import { Validators, NonNullableFormBuilder } from '@angular/forms';
 import { AuthService } from '../../core/auth/auth.service';
-import { finalize } from 'rxjs';
+import { finalize, catchError, EMPTY } from 'rxjs';
 import { TuiAlertService } from '@taiga-ui/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -37,15 +37,12 @@ export class LoginFormService {
          .pipe(
             finalize(() => this.isLoading.set(false)),
             takeUntilDestroyed(this.destroyRef),
-         )
-         .subscribe({
-            next: () => {
-               this.handleSuccess();
-            },
-            error: (err) => {
+            catchError((err) => {
                this.handleError(err);
-            },
-         });
+               return EMPTY;
+            })
+         )
+         .subscribe(() => this.handleSuccess());
    }
 
    private handleSuccess(): void {
