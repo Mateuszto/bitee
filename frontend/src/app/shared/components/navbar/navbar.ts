@@ -1,15 +1,23 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { TuiButton, TuiIcon, TuiPopup, TuiBreakpointService } from '@taiga-ui/core';
-import { TuiNavigation } from '@taiga-ui/layout';
-import { TuiDrawer } from '@taiga-ui/kit';
 import { AsyncPipe } from '@angular/common';
+import {
+   ChangeDetectionStrategy,
+   Component,
+   inject,
+   signal,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
+import {
+   TuiBreakpointService,
+   TuiButton,
+   TuiIcon,
+   TuiPopup,
+} from '@taiga-ui/core';
+import { TuiDrawer } from '@taiga-ui/kit';
 
 @Component({
    selector: 'app-navbar',
    templateUrl: './navbar.html',
    imports: [
-      TuiNavigation,
       TuiIcon,
       TuiButton,
       TuiDrawer,

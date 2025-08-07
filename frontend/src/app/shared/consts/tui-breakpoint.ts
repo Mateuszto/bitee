@@ -5,4 +5,5 @@ export const TUI_BREAKPOINT = {
    DESKTOP_LARGE: 'desktopLarge',
 } as const;
 
-export type TuiBreakpointValues = typeof TUI_BREAKPOINT[keyof typeof TUI_BREAKPOINT];
+export type TuiBreakpointValues =
+   (typeof TUI_BREAKPOINT)[keyof typeof TUI_BREAKPOINT];

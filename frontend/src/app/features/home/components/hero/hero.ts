@@ -1,18 +1,21 @@
 import {
-   Component,
    AfterViewInit,
    ChangeDetectionStrategy,
-   inject,
+   Component,
    computed,
+   inject,
    Signal,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { TuiButton, TuiTitle, TuiBreakpointService } from '@taiga-ui/core';
-import { TuiHeader } from '@taiga-ui/layout';
-
-import { gsap } from 'gsap';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { TUI_BREAKPOINT, TuiBreakpointValues } from '../../../../shared/consts/tui-breakpoint';
+import { RouterLink } from '@angular/router';
+import { TuiBreakpointService, TuiButton, TuiTitle } from '@taiga-ui/core';
+import { TuiHeader } from '@taiga-ui/layout';
+import { gsap } from 'gsap';
+
+import {
+   TUI_BREAKPOINT,
+   TuiBreakpointValues,
+} from '../../../../shared/consts/tui-breakpoint';
 
 @Component({
    selector: 'app-hero',
@@ -29,10 +32,13 @@ export class Hero implements AfterViewInit {
       'M0,32L48,53.3C96,75,192,117,288,133.3C384,149,480,139,576,149.3C672,160,768,192,864,186.7C960,181,1056,139,1152,128C1248,117,1344,139,1392,149.3L1440,160L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z',
    ];
 
-   tuiBreakpoint: Signal<TuiBreakpointValues | null> = toSignal(this.tuiBreakpointService, {
-      initialValue: TUI_BREAKPOINT.DESKTOP_LARGE,
-   });
-   
+   tuiBreakpoint: Signal<TuiBreakpointValues | null> = toSignal(
+      this.tuiBreakpointService,
+      {
+         initialValue: TUI_BREAKPOINT.DESKTOP_LARGE,
+      },
+   );
+
    tuiHeader: Signal<TuiHeader['size']> = computed((): TuiHeader['size'] => {
       switch (this.tuiBreakpoint()) {
          case TUI_BREAKPOINT.MOBILE:
