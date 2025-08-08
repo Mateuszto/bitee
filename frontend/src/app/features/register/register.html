@@ -1,0 +1,43 @@
+<header class="border-b border-(--tui-border-normal) px-6 py-4">
+   <a class="text-2xl font-bold text-gray-900" routerLink="/">Bitee 🍴</a>
+</header>
+<main class="flex flex-col items-center justify-center w-full max-w-xl mx-auto gap-8 mt-32">
+   <div tuiHeader titleSize>
+      <hgroup tuiTitle>
+         <h1>Zarejestruj się w Bitee</h1>
+         <p tuiSubtitle="s" [style.textAlign]="'center'">
+            Utwórz konto firmowe w kilku prostych krokach.
+         </p>
+      </hgroup>
+   </div>
+
+   @if (registerState.error()) {
+      <tui-notification size="l" appearance="negative" [style.width.%]="100">
+         {{ registerState.error() }}
+      </tui-notification>
+   }
+   <tui-stepper class="w-full justify-center" [activeItemIndex]="registerState.currentStep()">
+      <button tuiStep type="button" (click)="registerState.setCurrentStep(0)">
+         Dane podstawowe
+      </button>
+      <button
+         tuiStep
+         type="button"
+         [disabled]="!registerState.canProceedToNextStep()"
+         (click)="registerState.setCurrentStep(1)"
+      >
+         Dane firmy
+      </button>
+   </tui-stepper>
+
+   <div class="flex flex-col gap-6 w-full px-4 md:px-0">
+      @switch (registerState.currentStep()) {
+         @case (0) {
+            <app-register-core-step />
+         }
+         @case (1) {
+            <app-register-company-step />
+         }
+      }
+   </div>
+</main>

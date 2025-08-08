@@ -7,14 +7,11 @@ import {
    TuiError,
    TuiIcon,
    TuiTextfield,
-   TuiNotification, TuiTitle,
+   TuiNotification,
+   TuiTitle,
 } from '@taiga-ui/core';
 import { TuiButtonLoading } from '@taiga-ui/kit';
-import {
-   TuiCheckbox,
-   TuiFieldErrorPipe,
-   TuiPassword,
-} from '@taiga-ui/kit';
+import { TuiCheckbox, TuiFieldErrorPipe, TuiPassword } from '@taiga-ui/kit';
 import { TuiForm, TuiHeader } from '@taiga-ui/layout';
 import { LoginFormService } from './services/login-form-service';
 import { TitleSizeDirective } from '../../shared/directives/title-size.directive';
@@ -42,11 +39,7 @@ import { LoginState } from './login-state';
       RouterLink,
       TuiTitle,
    ],
-   providers: [
-      LoginFormService,
-      LoginState,
-      LoginActionsService
-   ],
+   providers: [LoginFormService, LoginState, LoginActionsService],
    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
@@ -57,17 +50,13 @@ export class LoginComponent {
    submit(): void {
       const form = this.loginForm.form;
 
-      const {
-         email,
-         password,
-         rememberMe
-      } = form.getRawValue();
+      const { email, password, rememberMe } = form.getRawValue();
 
-      if(form.valid) {
+      if (form.valid) {
          this.loginActionsService.submit({
             email,
             password,
-            rememberMe
+            rememberMe,
          });
       } else {
          form.markAllAsTouched();

@@ -1,0 +1,49 @@
+<div class="flex flex-col gap-6">
+   <h2 class="text-xl font-semibold">Dane podstawowe</h2>
+   <form
+      tuiForm="m"
+      [formGroup]="registerCoreStepFormService.form"
+      class="flex flex-col gap-4"
+      (ngSubmit)="registerState.setCurrentStep(1)"
+   >
+      <tui-textfield>
+         <label tuiLabel for="email">E-mail</label>
+         <input
+            tuiTextfield
+            name="email"
+            autocomplete="email"
+            formControlName="email"
+            placeholder="Wprowadź swój e-mail"
+         />
+      </tui-textfield>
+      <tui-error formControlName="email" [error]="[] | tuiFieldError | async" />
+
+      <tui-textfield>
+         <label tuiLabel for="password">Hasło</label>
+         <input
+            tuiTextfield
+            name="password"
+            autocomplete="new-password"
+            placeholder="Wprowadź swoje hasło (min. 8 znaków)"
+            type="password"
+            formControlName="password"
+         />
+         <tui-icon tuiPassword />
+      </tui-textfield>
+      <tui-error formControlName="password" [error]="[] | tuiFieldError | async" />
+
+      <div class="flex flex-col gap-4 mt-4">
+         <button
+            tuiButton
+            type="submit"
+            [disabled]="!registerState.canProceedToNextStep()"
+            appearance="primary"
+         >
+            Dalej
+         </button>
+         <a tuiButton routerLink="/login" appearance="outline-grayscale" [style.width.%]="100">
+            Masz już konto? Zaloguj się
+         </a>
+      </div>
+   </form>
+</div>
