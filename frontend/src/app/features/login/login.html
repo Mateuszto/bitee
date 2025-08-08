@@ -10,13 +10,13 @@
          </p>
       </hgroup>
    </div>
-   @if (loginForm.error()) {
+   {{ loginStateService.error() }}
+   @if (loginStateService.error()) {
       <tui-notification size="l" appearance="negative" [style.width.%]="100">
-         {{ loginForm.error() }}
-         <button iconStart="@tui.x" tuiIconButton type="button">Close</button>
+         {{ loginStateService.error() }}
       </tui-notification>
    }
-   <form tuiForm="m" [formGroup]="loginForm.form" class="w-full" (ngSubmit)="loginForm.submit()">
+   <form tuiForm="m" [formGroup]="loginForm.form" class="w-full" (ngSubmit)="submit()">
       <tui-textfield>
          <label tuiLabel for="email">E-mail</label>
          <input
@@ -53,7 +53,7 @@
             type="submit"
             [disabled]="loginForm.form.invalid"
             appearance="primary"
-            [loading]="loginForm.isLoading()"
+            [loading]="loginStateService.isLoading()"
             [style.width.%]="100"
          >
             Zaloguj się
