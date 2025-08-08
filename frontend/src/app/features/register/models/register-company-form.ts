@@ -1,7 +1,6 @@
 import { FormControl } from '@angular/forms';
 
 export interface RegisterCompanyFrom {
-   country: FormControl<string>;
    nip: FormControl<string>;
    companyName: FormControl<string>;
    address: FormControl<string>;

@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
-import { RegisterCoreForm } from './register-core-step.interface';
+import { RegisterCoreForm } from '../models/register-core-form';
 import { passwordValidator } from '../../../shared/validators/password.validator';
 
 @Injectable()

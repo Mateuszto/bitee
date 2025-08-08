@@ -5,8 +5,8 @@ import { TuiFieldErrorPipe, TuiPassword } from '@taiga-ui/kit';
 import { TuiForm } from '@taiga-ui/layout';
 import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { RegisterCoreStepFormService } from './register-core-step-form.service';
-import { RegisterStateService } from '../services/register-state.service';
+import { RegisterCoreStepFormService } from '../services/register-core-step-form-service';
+import { RegisterState } from '../register-state';
 
 @Component({
    selector: 'app-register-core-step',
@@ -26,6 +26,6 @@ import { RegisterStateService } from '../services/register-state.service';
    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterCoreStepComponent {
-   protected readonly coreForm = inject(RegisterCoreStepFormService);
-   protected readonly state = inject(RegisterStateService);
+   protected readonly registerCoreStepFormService = inject(RegisterCoreStepFormService);
+   protected readonly registerState = inject(RegisterState);
 }

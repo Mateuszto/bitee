@@ -10,7 +10,6 @@ export interface LoginCreadentials {
 export interface RegisterData {
    email: string;
    password: string;
-   country: string;
    nip: string;
    companyName: string;
    address: string;

@@ -2,9 +2,9 @@
    <h2 class="text-xl font-semibold">Dane firmy</h2>
    <form
       tuiForm="m"
-      [formGroup]="companyForm.form"
+      [formGroup]="registerCompanyStepFormService.form"
       class="flex flex-col gap-4"
-      (ngSubmit)="registerForm.submit()"
+      (ngSubmit)="submit()"
    >
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
          <div class="flex flex-col gap-4">
@@ -104,7 +104,7 @@
                id="acceptAll"
                type="checkbox"
                formControlName="acceptAll"
-               (change)="companyForm.selectAllAcceptances()"
+               (change)="registerCompanyStepFormService.selectAllAcceptances()"
             />
             <span class="text-sm"> Zaznacz wszystkie </span>
          </label>
@@ -117,7 +117,7 @@
                   id="acceptTerms"
                   type="checkbox"
                   formControlName="acceptTerms"
-                  (change)="companyForm.onAcceptanceChange()"
+                  (change)="registerCompanyStepFormService.onAcceptanceChange()"
                />
                <span class="text-sm">
                   <span class="text-(--tui-text-negative)">*</span> Akceptuję
@@ -134,7 +134,7 @@
                   id="acceptPrivacy"
                   type="checkbox"
                   formControlName="acceptPrivacy"
-                  (change)="companyForm.onAcceptanceChange()"
+                  (change)="registerCompanyStepFormService.onAcceptanceChange()"
                />
                <span class="text-sm">
                   <span class="text-(--tui-text-negative)">*</span> Akceptuję
@@ -149,7 +149,7 @@
                name="acceptMarketing"
                type="checkbox"
                formControlName="acceptMarketing"
-               (change)="companyForm.onAcceptanceChange()"
+               (change)="registerCompanyStepFormService.onAcceptanceChange()"
             />
             <span class="text-sm">
                Chcę otrzymywać oferty specjalne i inne informacje handlowe od Bitee sp. z o.o.
@@ -160,16 +160,15 @@
       </div>
 
       <div class="flex flex-col gap-4 mt-4">
-         <button
-            tuiButton
-            type="submit"
-            [disabled]="companyForm.form.invalid"
-            appearance="primary"
-            [loading]="state.isLoading()"
-         >
+         <button tuiButton type="submit" appearance="primary" [loading]="registerState.isLoading()">
             Wypróbuj za darmo
          </button>
-         <button tuiButton type="button" appearance="outline-grayscale" (click)="state.setStep(0)">
+         <button
+            tuiButton
+            type="button"
+            appearance="outline-grayscale"
+            (click)="registerState.setCurrentStep(0)"
+         >
             Wróć do danych podstawowych
          </button>
       </div>

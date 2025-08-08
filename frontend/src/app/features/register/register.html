@@ -11,28 +11,27 @@
       </hgroup>
    </div>
 
-   @if (state.error()) {
+   @if (registerState.error()) {
       <tui-notification size="l" appearance="negative" [style.width.%]="100">
-         {{ state.error() }}
-         <button iconStart="@tui.x" tuiIconButton type="button" (click)="state.error.set(null)">
-            Close
-         </button>
+         {{ registerState.error() }}
       </tui-notification>
    }
-   <tui-stepper class="w-full justify-center" [activeItemIndex]="state.currentStep()">
-      <button tuiStep type="button" (click)="state.setStep(0)">Dane podstawowe</button>
+   <tui-stepper class="w-full justify-center" [activeItemIndex]="registerState.currentStep()">
+      <button tuiStep type="button" (click)="registerState.setCurrentStep(0)">
+         Dane podstawowe
+      </button>
       <button
          tuiStep
          type="button"
-         [disabled]="!state.canProceedToNextStep()"
-         (click)="state.setStep(1)"
+         [disabled]="!registerState.canProceedToNextStep()"
+         (click)="registerState.setCurrentStep(1)"
       >
          Dane firmy
       </button>
    </tui-stepper>
 
-   <div class="flex flex-col gap-6 w-full">
-      @switch (state.currentStep()) {
+   <div class="flex flex-col gap-6 w-full px-4 md:px-0">
+      @switch (registerState.currentStep()) {
          @case (0) {
             <app-register-core-step />
          }

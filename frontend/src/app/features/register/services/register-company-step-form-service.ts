@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
-import { RegisterCompanyFrom } from './register-company-step.interface';
+import { RegisterCompanyFrom } from '../models/register-company-form';
 import { nipValidator } from '../../../shared/validators/nip.validator';
 import { postalCodeValidator } from '../../../shared/validators/postal-code.validator';
 import { phoneValidator } from '../../../shared/validators/phone.validator';
@@ -10,7 +10,6 @@ export class RegisterCompanyStepFormService {
    private readonly formBuilder = inject(NonNullableFormBuilder);
 
    public readonly form = this.formBuilder.group<RegisterCompanyFrom>({
-      country: this.formBuilder.control<string>('', { validators: [Validators.required] }),
       nip: this.formBuilder.control<string>('', {
          validators: [Validators.required, nipValidator()],
       }),
