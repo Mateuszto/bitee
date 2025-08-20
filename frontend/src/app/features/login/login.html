@@ -26,6 +26,7 @@
             id="email"
             name="email"
             autocomplete="email"
+            data-testingId="emailInput"
          />
       </tui-textfield>
       <tui-error formControlName="email" [error]="[] | tuiFieldError | async" />
@@ -39,6 +40,7 @@
             name="password"
             formControlName="password"
             autocomplete="current-password"
+            data-testingId="passwordInput"
          />
          <tui-icon tuiPassword />
       </tui-textfield>
@@ -49,6 +51,7 @@
       </label>
       <div class="flex flex-col gap-4 mt-4">
          <button
+            data-testingId="submitButton"
             tuiButton
             type="submit"
             [disabled]="loginForm.form.invalid"
